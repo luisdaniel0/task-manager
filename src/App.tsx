@@ -21,7 +21,19 @@ function App() {
 
   */
 
-  function handleSubmit(task) {}
+  function handleSubmit(e) {
+    e.preventDefault();
+    //user clicks add, task gets saved in tasks state and status/id gets added to that task
+    const addTask = {
+      ...task,
+      id: crypto.randomUUID(),
+      status: "Not Started",
+      date: new Date().toLocaleDateString(),
+    } as Task;
+
+    setTasks([...tasks, addTask]);
+    // setTasks([...tasks,task] )
+  }
   return (
     <>
       <h2>Task Manager</h2>
