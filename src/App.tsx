@@ -13,18 +13,6 @@ function App() {
   });
 
   /*
-  {
-      id: string;
-      name: string;
-      details?: string;
-      status: Status;
-      priority: Priority;
-      date: string;
-
-      status is added once task is added, defaults to "Not Started"
-      date is added on creation time when task is added
-  }
-
   //Q's
     do all forms require a state? i had issues with identifying what kind of states i 
   needed and got confused because i had a state for a list of tasks and also a state for 
@@ -33,20 +21,46 @@ function App() {
 
   */
 
-  function addTask(task) {}
+  function handleSubmit(task) {}
   return (
     <>
       <h2>Task Manager</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
-          Title: <input type="text" />
+          Title:{" "}
+          <input
+            type="text"
+            onChange={(e) => {
+              setTask({ ...task, name: e.target.value });
+            }}
+            value={task.name}
+          />
         </label>
         <label>
-          Details: <textarea></textarea>
+          Details:{" "}
+          <textarea
+            onChange={(e) => {
+              setTask({ ...task, details: e.target.value });
+            }}
+            value={task.details}
+          ></textarea>
         </label>
         <label>
           Priority:
-          <select name="priority" id="prio">
+          <select
+            name="priority"
+            id="prio"
+            onChange={(e) => {
+              if (
+                e.target.value === "Low" ||
+                e.target.value === "Medium" ||
+                e.target.value === "High"
+              ) {
+                setTask({ ...task, priority: e.target.value as Priority });
+              }
+            }}
+            value={task.priority}
+          >
             <option value="">--Please choose an option--</option>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
